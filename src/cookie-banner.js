@@ -1,4 +1,4 @@
-import CookieBanner from '../src/GACookieConsent.svelte'
+import CookieBanner from './GACookieConsent.svelte'
 
 function createGACookieBanner(gaMeasurementId, options = {}) {
 	const {

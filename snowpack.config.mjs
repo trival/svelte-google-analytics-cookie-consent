@@ -1,10 +1,9 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 export default {
-	root: './example',
-	workspaceRoot: '.',
-
 	mount: {
 		/* ... */
+		example: '/',
+		src: '/lib',
 	},
 	plugins: ['@snowpack/plugin-svelte', '@snowpack/plugin-dotenv'],
 	routes: [
@@ -13,17 +12,12 @@ export default {
 	],
 	optimize: {
 		/* Example: Bundle your final build: */
-		// "bundle": true,
 		bundle: true,
 		minify: true,
 		target: 'es6',
 		splitting: true,
 		treeshake: true,
-		entrypoints: [
-			'./src/index.js',
-			// './example/index.html',
-			// './example/index_custom.html',
-		],
+		entrypoints: ['./src/cookie-banner.js'],
 	},
 	packageOptions: {
 		/* ... */
@@ -32,5 +26,5 @@ export default {
 		/* ... */
 	},
 	// @ts-ignore
-	buildOptions: { out: './dist' },
+	buildOptions: { out: './dist/' },
 }
