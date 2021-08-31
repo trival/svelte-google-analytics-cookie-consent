@@ -149,6 +149,15 @@
 		margin-left: 1em;
 	}
 
+	@media screen and (max-width: 400px) {
+		.ga-cookie-banner-btns {
+			white-space: normal;
+		}
+		.ga-cookie-banner-btn {
+			margin: 1em 1em 0;
+		}
+	}
+
 	.ga-cookie-banner-accept-btn {
 		background-color: rgb(0, 192, 102);
 		border-color: rgb(0, 192, 102);
