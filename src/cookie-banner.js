@@ -1,6 +1,6 @@
 import CookieBanner from './GACookieConsent.svelte'
 
-function createGACookieBanner(gaMeasurementId, options = {}) {
+function createGACookieBanner(gaMeasurementIds, options = {}) {
 	const {
 		anonymizeIPs,
 		bannerText,
@@ -12,10 +12,11 @@ function createGACookieBanner(gaMeasurementId, options = {}) {
 	const cookieBannerDiv = document.createElement('div')
 	document.body.appendChild(cookieBannerDiv)
 
+	// @ts-ignore
 	const banner = new CookieBanner({
 		target: cookieBannerDiv,
 		props: {
-			gaMeasurementId,
+			gaMeasurementIds,
 			anonymizeIPs,
 			bannerText,
 			acceptBtnLabel,

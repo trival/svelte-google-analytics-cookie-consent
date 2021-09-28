@@ -9,7 +9,7 @@
 
 	// === props ===
 
-	export let gaMeasurementId = ''
+	export let gaMeasurementIds = []
 	export let anonymizeIPs = true
 	export let bannerText = 'This site uses cookies!'
 	export let acceptBtnLabel = 'Accept'
@@ -26,6 +26,8 @@
 	export const reject = disableGA
 
 	// === cookie state ===
+	const gaIds =
+		typeof gaMeasurementIds === 'string' ? [gaMeasurementIds] : gaMeasurementIds
 
 	const consentCookieName = 'consent_given'
 	const consentCookieValueAccepted = 'true'
@@ -49,8 +51,10 @@
 	// === helper functions ===
 
 	function enableGA() {
-		if (gaMeasurementId && typeof window.dataLayer === 'undefined') {
-			window[`ga-disable-${gaMeasurementId}`] = undefined
+		if (gaIds.length && typeof window.dataLayer === 'undefined') {
+			for (const gaId of gaIds) {
+				window[`ga-disable-${gaId}`] = undefined
+			}
 
 			const script = document.createElement('script')
 
@@ -60,10 +64,12 @@
 					window.dataLayer.push(arguments)
 				}
 				gtag('js', new Date())
-				gtag('config', gaMeasurementId, { anonymize_ip: anonymizeIPs })
+				for (const gaId of gaIds) {
+					gtag('config', gaId, { anonymize_ip: anonymizeIPs })
+				}
 			}
 
-			script.src = `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`
+			script.src = `https://www.googletagmanager.com/gtag/js?id=${gaIds[0]}`
 			document.body.appendChild(script)
 		}
 
@@ -71,7 +77,9 @@
 	}
 
 	function disableGA() {
-		window[`ga-disable-${gaMeasurementId}`] = true
+		for (const gaId of gaIds) {
+			window[`ga-disable-${gaId}`] = true
+		}
 		window.dataLayer = undefined
 		getGoogleCookies().forEach(eraseCookie)
 		setConsentCookieRejected()
@@ -149,7 +157,7 @@
 		margin-left: 1em;
 	}
 
-	@media screen and (max-width: 400px) {
+	@media screen and (max-width: 480px) {
 		.ga-cookie-banner-btns {
 			white-space: normal;
 		}
